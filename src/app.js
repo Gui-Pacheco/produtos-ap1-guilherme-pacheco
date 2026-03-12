@@ -2,6 +2,10 @@ const express = require("express")
 
 const app = express()
 
+const produtosRoutes = require("./routes/produtos")
+
+app.use("/api/v1/produtos", produtosRoutes)
+
 app.use(express.json())
 
 // middleware de log
