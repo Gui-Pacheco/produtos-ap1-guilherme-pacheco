@@ -44,7 +44,27 @@ function criar(req, res) {
 }
 
 function atualizar(req, res) {
-  // TODO
+  const id = parseInt(req.params.id)
+
+  const index = produtos.findIndex(p => p.id === id)
+
+  if (index === -1) {
+    return res.status(404).json({ erro: "Produto não encontrado" })
+  }
+
+  const produtoAntigo = produtos[index]
+
+  const atualizado = {
+    ...produtoAntigo,
+    ...req.body,
+    id: produtoAntigo.id,
+    criado_em: produtoAntigo.criado_em,
+    atualizado_em: new Date().toISOString()
+  }
+
+  produtos[index] = atualizado
+
+  res.status(200).json(atualizado)
 }
 
 function remover(req, res) {
